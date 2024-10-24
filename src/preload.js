@@ -11,4 +11,9 @@ contextBridge.exposeInMainWorld('myAPI', {
   getDataFromDB: () => ipcRenderer.invoke('getDataFromDB'),
   openForm: () => ipcRenderer.invoke('openForm'),
   addUser: (user) => ipcRenderer.send('addUser', user),
+  closeForm: () => ipcRenderer.send('closeForm'),
+  sendMessageToMainWindow: (channel, data) => ipcRenderer.send(channel, data),
+  receiveMessageFromForm: (channel, func) => {
+    ipcRenderer.on(channel, (event, data) => func(data));
+  }
 });

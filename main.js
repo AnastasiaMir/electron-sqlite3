@@ -61,6 +61,10 @@ const createWindow = () => {
 
     newWin.loadFile('user.html');
     newWin.webContents.openDevTools();
+    
+    ipcMain.on('closeForm', () => {
+      newWin.close();
+    });
   });
 };
 

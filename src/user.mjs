@@ -1,3 +1,4 @@
+
 const form = document.querySelector('form');
 
 
@@ -8,6 +9,12 @@ const createUser = async (e) => {
   const newUser = {name, email};
   console.log(newUser)
   await window.myAPI.addUser(newUser);
+  await window.myAPI.closeForm();
+
+  
 }
+window.addEventListener('beforeunload', async () => {
+  await window.myAPI.sendMessageToMainWindow('formClosed', newUser);
+})
 
 form.addEventListener('submit', createUser);

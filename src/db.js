@@ -18,17 +18,17 @@ const users = [
 const sqlite = sqlite3.verbose();
 
 const db = new sqlite.Database('./db.sqlite3');
-// db.serialize(() => {
-//   db.run(`create table IF NOT EXISTS users (
-//     id INTEGER PRIMARY KEY AUTOINCREMENT,
-//     name TEXT,
-//     email TEXT)`);
-//   const addData = db.prepare('insert into users (NAME, EMAIL) Values (?, ?)');
-//   for ({name, email} of users) {
-//     addData.run(name, email)
-//   }
-//   addData.finalize();
-// });
+db.serialize(() => {
+  db.run(`create table IF NOT EXISTS users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT,
+    email TEXT)`);
+  const addData = db.prepare('insert into users (NAME, EMAIL) Values (?, ?)');
+  for ({name, email} of users) {
+    addData.run(name, email)
+  }
+  addData.finalize();
+});
 // db.close()
 
 const getUsers = (callback) => {

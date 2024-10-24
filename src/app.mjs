@@ -1,5 +1,6 @@
+const usersTable = document.querySelector('table');
 
-const usersTable = document.querySelector('.table');
+
 
 const createRow = (user) => {
   const tr = document.createElement('tr');
@@ -25,6 +26,11 @@ const renderTable = async (table) => {
   }
   
 }
+window.addEventListener('DOMContentLoaded', () => {
+  window.myAPI.receiveMessageFromForm('formClosed', (data) => {
+    renderTable(usersTable)
+  });
+});
 
 renderTable(usersTable);
 
@@ -32,3 +38,5 @@ const createUserButton = document.querySelector('.createUser')
 createUserButton.addEventListener('click', async () => {
   await window.myAPI.openForm()
 })
+
+export {renderTable, usersTable}
